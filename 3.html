@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff0f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      /* width: 400px;
+      height: 500px;
+      border: 3px solid pink;
+      border-radius: 15px; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      /* background-color: white; */
+      padding: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+    }
+
+    .yes {
+      background-color: green;
+    }
+
+    .no {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const NO_PHRASES = [
+      "No 💔",
+      "Pretty please? 🥺",
+      "But we'd be so cute together! 💕",
+      "One more chance, pookie?",
+      "Don't break my heart :(",
+      "What about a maybe?",
+      "Please don't do this to me, I'm fragile",
+    ];
+
+    function App() {
+      const [noClicks, setNoClicks] = useState(0);
+      const [isValentine, setIsValentine] = useState(false);
+      const yesButtonSize = (noClicks * 20) + 16;
+
+      const firstImg = "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
+      const secondImg = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+
+      return (
+        <div className="container">
+          {!isValentine ? (
+            <>
+              <img src={firstImg} width="150" />
+              <h2>Will you be my Valentine? 💘</h2>
+
+              <button
+                className="yes"
+                style={{ fontSize: yesButtonSize }}
+                onClick={() => setIsValentine(true)}
+              >
+                Yes
+              </button>
+
+              <button
+                className="no"
+                onClick={() => setNoClicks(noClicks + 1)}
+              >
+                {noClicks === 0
+                  ? "No"
+                  : NO_PHRASES[Math.min(noClicks - 1, NO_PHRASES.length - 1)]}
+              </button>
+            </>
+          ) : (
+            <>
+              <img src={secondImg} width="180" />
+              <h1 style={{ color: "pink" }}>Yay!!! 💖🎉</h1>
+            </>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
